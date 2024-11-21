@@ -1,12 +1,26 @@
 import mongoose from 'mongoose';
 
-const stockSchema = new mongoose.Schema({
-  name: { type: String, required: true, index: true },  // Adding an index on the name field
-  price: { type: Number, required: true },
-});
+const stockSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      index: true, // Single field index for quick searches
+      trim: true,  // Removes extra spaces
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: [0, 'Price must be a non-negative value'], // Ensures price is non-negative
+    },
+  },
+  {
+    timestamps: true, // Adds createdAt and updatedAt fields
+  }
+);
 
-// Create compound or other indexes if needed (e.g., for multiple fields)
-stockSchema.index({ name: 1, price: -1 }); // Compound index with ascending 'name' and descending 'price'
+// Create compound index for 'name' (ascending) and 'price' (descending)
+stockSchema.index({ name: 1, price: -1 });
 
 const Stock = mongoose.model('Stock', stockSchema);
 
