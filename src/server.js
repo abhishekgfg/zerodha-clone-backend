@@ -5,6 +5,7 @@ import connectDB from './config/db.js'; // Importing as an ES module
 import authRoutes from './routes/authRoutes.js';
 import stockRoutes from './routes/stockRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import watchRoutes from './routes/watchlistRoutes.js'
 const app = express();
 
 // Connect to MongoDB
@@ -18,6 +19,7 @@ app.use(express.json()); // Use express's built-in JSON parsing middleware
 app.use('/api/auth', authRoutes);
 app.use('/api/stocks', stockRoutes);
 app.use('/api/orders',orderRoutes);
+app.use('/api/watchlist',watchRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
