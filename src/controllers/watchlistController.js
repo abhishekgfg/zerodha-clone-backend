@@ -51,3 +51,5 @@ const getWatchlist = async (req, res) => {
 };
 
 export { addStockToWatchlist, getWatchlist };
+
+

@@ -17,6 +17,7 @@ const stockSchema = new mongoose.Schema(
   {
     timestamps: true, // Adds createdAt and updatedAt fields
   }
+  
 );
 
 // Create compound index for 'name' (ascending) and 'price' (descending)

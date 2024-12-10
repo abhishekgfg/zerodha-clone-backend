@@ -10,3 +10,8 @@ router.post('/', addStockToWatchlist);
 router.get('/', getWatchlist);
 
 export default router;
+
+
+
+
+
