@@ -50,6 +50,32 @@ const getWatchlist = async (req, res) => {
   }
 };
 
-export { addStockToWatchlist, getWatchlist };
+const updateStockPrice = async (req, res) => {
+  const { id } = req.params;
+  const { price } = req.body;
+
+  if (!price || isNaN(price) || price <= 0) {
+    return res.status(400).json({ message: 'Invalid price provided.' });
+  }
+
+  try {
+    const stock = await Watchlist.findById(id);
+    if (!stock) {
+      return res.status(404).json({ message: 'Stock not found.' });
+    }
+
+    // Update the stock price
+    stock.price = price;
+    stock.totalValue = stock.price * stock.quantity; // Recalculate total value
+
+    await stock.save();
+    res.status(200).json(stock);
+  } catch (error) {
+    console.error('Error updating stock price:', error);
+    res.status(500).json({ message: 'Error updating stock price.' });
+  }
+};
+
+export { addStockToWatchlist, getWatchlist,updateStockPrice };
 
 
